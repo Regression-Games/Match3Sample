@@ -29,7 +29,7 @@ public class RunBotTest
         const int TEST_RUN_TIMEOUT_IN_SECONDS = 300;
 
         // For in-editor purposes, feel free to define a default bot to use!
-        int defaultBotId = 1000036;
+        int defaultBotId = 119;
 
         // NOTE: Make sure to fill in the name of the scene to start your test with!
         Debug.Log($"{timeNow()} Waiting for scene to load...");
