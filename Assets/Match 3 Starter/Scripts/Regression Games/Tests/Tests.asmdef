@@ -1,0 +1,9 @@
+{
+    "name": "Tests",
+    "references": [
+        "RegressionGames"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}
