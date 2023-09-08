@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
 using RegressionGames;
+using RegressionGames.Types;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -27,7 +29,7 @@ public class RunBotTest
         const int TEST_RUN_TIMEOUT_IN_SECONDS = 300;
 
         // For in-editor purposes, feel free to define a default bot to use!
-        int defaultBotId = 119;
+        int defaultBotId = 1000036;
 
         // NOTE: Make sure to fill in the name of the scene to start your test with!
         Debug.Log($"{timeNow()} Waiting for scene to load...");
@@ -52,6 +54,8 @@ public class RunBotTest
         // do this before the queue
         RGBotServerListener.GetInstance().StartGame();
 
+        var botInstanceIds = new List<long>();
+
         // startup all the queue requests
         foreach (var botId in botIds)
         {
@@ -60,6 +64,7 @@ public class RunBotTest
             var task = RGServiceManager.GetInstance()
                 .QueueInstantBot((long) botId, (botInstance) =>
                 {
+                    botInstanceIds.Add(botInstance.id);
                     RGBotServerListener.GetInstance().AddClientConnectionForBotInstance(botInstance.id);
                 }, () =>
                 {
@@ -119,6 +124,13 @@ public class RunBotTest
             yield return null;
         }
 
+        if (HasFailedValidations(botInstanceIds))
+        {
+            Debug.Log($"{timeNow()} Bots failed validations\r\n\r\n{GetFailedValidationString(botInstanceIds)}");
+            RGBotServerListener.GetInstance()?.StopGame();
+            Assert.Fail($"{timeNow()} Bots failed validations\r\n\r\n{GetFailedValidationString(botInstanceIds)}");
+        }
+
         if (RGBotServerListener.GetInstance().HasBotsRunning())
         {
             Debug.Log($"{timeNow()} Bots failed to finish their test run within {TEST_RUN_TIMEOUT_IN_SECONDS} seconds");
@@ -130,6 +142,40 @@ public class RunBotTest
         
         // Cleanup when done
         RGBotServerListener.GetInstance()?.StopGame();
+    }
+
+    private string GetFailedValidationString(List<long> botInstanceIds)
+    {
+        string result = "Failed Bot Validations\r\n=====================\r\n";
+        foreach (var botInstanceId in botInstanceIds)
+        {
+            var failedValidations =
+                RGBotServerListener.GetInstance().GetFailedValidationsForClient((uint)botInstanceId);
+            if (!failedValidations.IsEmpty)
+            {
+                string botResult = $"BotInstanceId: {botInstanceId}\r\n";
+                foreach (var rgValidationResult in failedValidations)
+                {
+                    botResult += $" - {rgValidationResult.message}\r\n";
+                }
+                result += botResult + "----\r\n";
+            }
+        }
+
+        return result;
+    }
+
+    private bool HasFailedValidations(List<long> botInstanceIds)
+    {
+        foreach (var botInstanceId in botInstanceIds)
+        {
+            if (!RGBotServerListener.GetInstance().GetFailedValidationsForClient((uint)botInstanceId).IsEmpty)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
     
 }
