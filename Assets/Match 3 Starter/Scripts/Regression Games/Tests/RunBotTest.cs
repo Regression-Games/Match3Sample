@@ -65,7 +65,7 @@ public class RunBotTest
                 .QueueInstantBot((long) botId, (botInstance) =>
                 {
                     botInstanceIds.Add(botInstance.id);
-                    RGBotServerListener.GetInstance().AddClientConnectionForBotInstance(botInstance.id);
+                    RGBotServerListener.GetInstance().AddClientConnectionForBotInstance(botInstance.id, RGClientConnectionType.REMOTE);
                 }, () =>
                 {
                     Debug.LogError($"{timeNow()} Error starting bot with ID {botId}");
