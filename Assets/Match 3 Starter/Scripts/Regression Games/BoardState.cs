@@ -11,7 +11,7 @@ public class BoardState : RGState
         _boardManager = GetComponent<BoardManager>();
     }
 
-    public override Dictionary<string, object> GetState()
+    protected override Dictionary<string, object> GetState()
     {
         var state = new Dictionary<string, object>();
         state["tiles"] = _boardManager.GetTileIdentifiers();;
