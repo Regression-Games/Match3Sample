@@ -32,7 +32,8 @@ public class SwipeAction : RGAction
         IEnumerator SwapTiles()
         {
             tile1.GetComponent<Tile>().OnMouseDown();
-            yield return new WaitForSeconds (1);
+            var startTime = DateTime.Now;
+            yield return new WaitUntil(() => (DateTime.Now - startTime).TotalSeconds > 0.25);
             tile2.GetComponent<Tile>().OnMouseDown();
         }
         StartCoroutine(SwapTiles());
