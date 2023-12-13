@@ -39,6 +39,15 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.inputsystem": {
+      "version": "1.5.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.1.0",
       "depth": 1,
@@ -98,14 +107,15 @@
       "url": "https://packages.unity.com"
     },
     "gg.regression.unity.bots": {
-      "version": "https://github.com/Regression-Games/RGUnityBots.git",
+      "version": "https://github.com/Regression-Games/RGUnityBots.git?path=src/gg.regression.unity.bots",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.1.0",
-        "com.unity.textmeshpro": "3.0.6"
+        "com.unity.textmeshpro": "3.0.6",
+        "com.unity.inputsystem": "1.5.1"
       },
-      "hash": "b0abe2ca8696945aec9679952b296a7b8b9b0c54"
+      "hash": "c0af47aa049e46d990b14d397aa52986c1f1daf6"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
