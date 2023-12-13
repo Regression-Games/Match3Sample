@@ -107,7 +107,7 @@
       "url": "https://packages.unity.com"
     },
     "gg.regression.unity.bots": {
-      "version": "https://github.com/Regression-Games/RGUnityBots.git?path=src/gg.regression.unity.bots#ashley/reg-1495",
+      "version": "https://github.com/Regression-Games/RGUnityBots.git?path=src/gg.regression.unity.bots",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -115,7 +115,7 @@
         "com.unity.textmeshpro": "3.0.6",
         "com.unity.inputsystem": "1.5.1"
       },
-      "hash": "8d671eecf7e1c4b01e4688405cd7b5740750af90"
+      "hash": "c0af47aa049e46d990b14d397aa52986c1f1daf6"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
