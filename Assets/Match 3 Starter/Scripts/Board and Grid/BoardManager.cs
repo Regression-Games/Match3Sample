@@ -25,6 +25,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using RegressionGames;
 using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour {
@@ -136,6 +137,7 @@ public class BoardManager : MonoBehaviour {
 		return tiles[x, y];
 	}
 
+	[RGState("tiles")]
 	public int[,] GetTileIdentifiers()
 	{
 		var tileIdentifiers = new int[xSize, ySize];
